@@ -1,0 +1,4 @@
+
+Python is an interesting Language
+Building mini project to practsie concepts more.
+Revising concepts
