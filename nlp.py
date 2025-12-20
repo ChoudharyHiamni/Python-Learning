@@ -121,4 +121,48 @@ print(ner_tree)
 
           #ENCODING:CONVERTING WORDS INTO VECTOR
     #BAG OF WORDS:Bag of Words is a text representation technique that converts text into numerical vectors based on word frequency.
+#TF-IDF assigns weights to words based on their importance by balancing term frequency and inverse document frequency.
+
+#WORD EMBEDDINGS:Word Embeddings are dense vector representations of words that capture semantic relationships and context.
+   #EX:WORD2VEC, GloVe, FastText
+#ord2Vec is a neural network–based technique that learns word embeddings.
+# Two models:
+  # CBOW (Continuous Bag of Words) → Predicts a word from its context
+  # Skip-gram  → Predicts context from a word (better for small data)
+
+  #Why Word2Vec over TF-IDF? -Because Word2Vec captures semantic meaning and context, unlike TF-IDF.
+
+
+from gensim.models import Word2Vec
+from nltk.tokenize import word_tokenize
+import nltk
+
+nltk.download('punkt')
+nltk.download('punkt_tab')
+
+# Sample corpus
+sentences = [
+    "I love natural language processing",
+    "Word embeddings are very useful",
+    "I love machine learning",
+    "Natural language processing is powerful"
+]
+
+# Tokenize sentences
+tokenized_sentences = [word_tokenize(sentence.lower()) for sentence in sentences]
+
+# Train Word2Vec model
+model = Word2Vec(
+    sentences=tokenized_sentences,
+    vector_size=100,
+    window=5,
+    min_count=1,
+    sg=1   # sg=1 → Skip-gram, sg=0 → CBOW
+)
+
+# Get word vector
+vector = model.wv['language']
+print(vector)
+similar_words = model.wv.most_similar('language')
+print(similar_words)
 
